@@ -1,11 +1,11 @@
-name: Deplot AWS Lambda #name of workflow
+name: Deploy AWS Lambda #name of workflow
 
 on:
   push: 
     branches:
       - main #only run workflow when pushing to main
     paths:
-      - 'lambda/' #only for changes in lambda folder
+      - 'lambda/**' #only for changes in lambda folder
 
 #basically: anytime we make changes to /lambda, this job gets triggered
 # and creates the job below and do the rest
