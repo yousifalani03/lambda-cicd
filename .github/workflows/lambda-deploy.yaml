@@ -1,0 +1,40 @@
+name: Deplot AWS Lambda #name of workflow
+
+on:
+  push: 
+    branches:
+      - main #only run workflow when pushing to main
+    paths:
+      - 'lambda/' #only for changes in lambda folder
+
+#basically: anytime we make changes to /lambda, this job gets triggered
+# and creates the job below and do the rest
+
+jobs:
+  deploy-lambda: #name of job
+    runs-on: ununtu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set Up Python #sets up python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'
+
+    - name: Install Dependencies
+      run: | #installs packages
+        python -m pip install --upgrade pip
+        pip install -r lambda/requirements.txt -t lambda/
+
+    - name: Configure AWS Creds #sets up aws credentials
+      uses: aws-actions/confugure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_Access_Key_ID }}
+        aws-access-secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-1
+
+    - name: Deploy Lambda Function
+      run: | #zips lambda directory and updates lambda function
+        cd lambda 
+        zip -r lambda.zip .
+        aws lambda update-function-code --function-name my-test-cicd-lambda --zip-file fileb://lambda.zip
