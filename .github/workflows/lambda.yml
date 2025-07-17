@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'lambda/**'
 
 
 jobs:
@@ -33,4 +35,4 @@ jobs:
         run: |
           cd lambda
           zip -r lambda.zip .
-          aws lambda update-function-code --function-name my-test-cicd-lambda --zip-file fileb://lambda.zip
+          aws lambda update-function-code --function-name my-test-cicd --zip-file fileb://lambda.zip
