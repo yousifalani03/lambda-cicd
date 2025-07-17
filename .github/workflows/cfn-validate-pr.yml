@@ -32,7 +32,7 @@ jobs:
           stack_name="pr-test-stack-${{ github.event.pull_request.number }}" # Added proper spacing in interpolation
           aws cloudformation create-stack \
             --stack-name $stack_name \
-            --template-body file://cloudformation/s3-bucket.yml \ 
+            --template-body file://cloudformation/s3-bucket.yml \
             --parameters ParameterKey=Environment,ParameterValue=test 
 
       - name: Comment on the PR #comment results
