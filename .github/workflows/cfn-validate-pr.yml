@@ -43,7 +43,7 @@ jobs:
               body: 'Cloudformation test stack deployed. Stack name: pr-test-stack-${{ github.event.pull_request.number}}'
             })
 
-  cleanup-on-merge: #when merged, this deletes stack and cleans up resources
+  cleanup-on-merge: #when merged, this deletes stack and cleans up resources for you
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
