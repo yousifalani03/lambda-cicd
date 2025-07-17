@@ -25,8 +25,7 @@ jobs:
       - name: Validate cloudformation template
         run: | 
           aws cloudformation validate-template \
-            --template-body fileb://cloudformation/s3-bucket.yml \
-            --parameters ParameterKey=Environment,ParameterValue=test
+      --template-body file://cloudformation/s3-bucket.yml
 
       - name: Deploy out stack 
         run: |
